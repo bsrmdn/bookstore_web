@@ -85,9 +85,9 @@
         </div>
     </div> --}}
     <div class="row justify-content-center align-items-center" style="height: 80vh">
-        <div class="col-md-5">
+        <div class="col-md-5" style="max-width: 450px">
             <div class="form-signin">
-                <h1 class="h3 mb-3 fw-normal text-center">{{ __('Register') }}</h1>
+                <h1 class="h2 mb-3 fw-bold text-center">{{ __('Register') }}</h1>
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
 
@@ -128,9 +128,10 @@
                         <label for="password-confirm">Confirm Password</label>
                     </div>
 
-                    <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Register</button>
+                    <button class="w-100 btn btn-lg btn-secondary fw-bold mt-4" type="submit">Register</button>
                 </form>
-                <small class="d-block text-center mt-3">Already Registered? <a href="/login">Login Here</a></small>
+                <small class="d-block text-center mt-3">Already Registered? <a href="/login" class="link-secondary">Login
+                        Here</a></small>
             </div>
         </div>
     </div>

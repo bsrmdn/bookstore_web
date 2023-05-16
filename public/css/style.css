@@ -1,3 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
+
+html * {
+    font-family: 'PT Serif', serif;
+}
+
+.navbar-nav.mx-auto a.nav-link {
+    font-family: Arial, sans-serif !important;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.form-control:focus {
+    border-color: var(--bs-border-color) !important;
+    box-shadow: 0 0 0 0.2rem #25252540 !important;
+}
+
+.search-form.form-control:focus {
+    box-shadow: none !important;
+}
+
+::-webkit-input-placeholder {
+    font-size: .8em !important;
+}
+
 .form-signin {
     padding: 15px;
 }
@@ -9,4 +34,20 @@
 .form-signin input {
     border-radius: 0;
     margin-bottom: -1px;
+}
+
+.btn-secondary {
+    --bs-btn-bg: #252525 !important;
+    --bs-btn-border-color: #252525 !important;
+    --bs-btn-hover-bg: #0b1220 !important;
+}
+
+/* Hero */
+.hero-page {
+    height: 100vh;
+    background-color: #faf8f6;
+}
+
+.hero-title {
+    font-size: 6em;
 }

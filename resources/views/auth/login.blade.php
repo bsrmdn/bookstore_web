@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="row justify-content-center align-items-center" style="height: 80vh">
-        <div class="col-md-5">
+        <div class="col-md-5 text-center" style="max-width: 450px">
             <div class="form-signin">
-                <h1 class="h3 mb-3 fw-normal text-center">{{ __('Login') }}</h1>
+                <h1 class="h2 mb-3 fw-bold text-center">{{ __('Login') }}</h1>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
 
@@ -31,9 +31,10 @@
                         @enderror
                     </div>
 
-                    <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Login</button>
+                    <button class="w-100 btn btn-lg btn-secondary mt-4 fw-bold" type="submit">Login</button>
                 </form>
-                <small class="d-block text-center mt-3">Not Registered? <a href="/register">Register Now!</a></small>
+                <small class="d-block mt-3">Not Registered? <a href="/register" class="link-secondary">Register
+                        Now!</a></small>
             </div>
         </div>
     </div>
