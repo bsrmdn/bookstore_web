@@ -1,7 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=PT+Serif&display=swap');
 
 html * {
     font-family: 'PT Serif', serif;
+}
+
+.montserrat {
+    font-family: 'Monserrat', sans-serif !important;
+}
+
+/* Navbar */
+nav {
+    background-color: #faf8f6;
 }
 
 .navbar-nav.mx-auto a.nav-link {
@@ -10,7 +19,46 @@ html * {
     font-weight: 600;
 }
 
-.form-control:focus {
+@media (min-width: 992px) {
+    nav .left-nav li a:hover {
+        -moz-transition: all .3s ease-in-out;
+        -webkit-transition: all .3s ease-in-out;
+        -ms-transition: all .3s ease-in-out;
+        -o-transition: all .3s ease-in-out;
+        transition: all .3s ease-in-out;
+    }
+
+    nav .left-nav li {
+        position: relative;
+    }
+
+    nav .left-nav li::after {
+        content: '';
+        display: block;
+        width: 0;
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        height: 2px;
+        background: #252525;
+        transition: cubic-bezier(.77, 0, .18, 1) .3s;
+    }
+
+
+    nav .left-nav li:hover::after,
+    .active::after {
+        width: 60%;
+        left: 20%;
+    }
+
+    nav .left-nav li {
+        transition: cubic-bezier(.77, 0, .18, 1) .3s;
+    }
+}
+
+/* Login */
+.form-control:focus,
+.modal-body .form-control:focus {
     border-color: var(--bs-border-color) !important;
     box-shadow: 0 0 0 0.2rem #25252540 !important;
 }
@@ -36,18 +84,40 @@ html * {
     margin-bottom: -1px;
 }
 
+/* button bootstrap */
 .btn-secondary {
     --bs-btn-bg: #252525 !important;
-    --bs-btn-border-color: #252525 !important;
+    --bs-btn-border-color: #25252540 !important;
     --bs-btn-hover-bg: #0b1220 !important;
+}
+
+.btn-primary {
+    --bs-btn-bg: #0b1220 !important;
+    --bs-btn-border-color: #0b1220ee !important;
+    --bs-btn-hover-border-color: #0b1220ee !important;
+    --bs-btn-hover-bg: #0b1220ee !important;
+    --bs-btn-active-bg: #0b1220dd !important;
+}
+
+/* Height per Container */
+section {
+    height: 100vh;
+}
+
+.vh-75 {
+    height: 75vh;
 }
 
 /* Hero */
 .hero-page {
-    height: 100vh;
     background-color: #faf8f6;
 }
 
 .hero-title {
     font-size: 6em;
+}
+
+/* Books card */
+.card-img {
+    height: 20rem;
 }

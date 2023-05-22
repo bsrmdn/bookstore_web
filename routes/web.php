@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Models\Book;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +23,17 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('users/{author:name}', function (User $author) {
+    return view('profile', [
+        'author' => $author->name,
+        'books' => Book::all(),
+
+    ]);
+});
+Route::get('/profile', function () {
+    return view('profile', [
+        'books' => Book::all(),
+        'myBooks' => Book::where('user_id', auth()->user()->id)->get()
+    ]);
+})->name('profile');

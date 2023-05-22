@@ -23,7 +23,7 @@
         </div>
     </div>
 </nav> --}}
-<nav class="navbar fixed-top navbar-expand-lg shadow-none">
+<nav class="navbar sticky-top navbar-expand-lg">
     <div class="container">
         <a class="navbar-brand fw-bold" href="{{ url('/') }}">
             {{ __('Book.store') }}
@@ -35,9 +35,9 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mx-auto column-gap-4">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Books</a>
+            <ul class="navbar-nav mx-auto left-nav column-gap-4">
+                <li class="nav-item active">
+                    <a class="nav-link" aria-current="page" href="/">Books</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Categories</a>
@@ -55,11 +55,18 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
-                <form class="d-flex border-bottom border-dark me-2" role="search">
+                <form class="d-flex border-bottom border-dark me-4" role="search">
                     <i class="bi bi-search align-self-center pe-2"> </i>
                     <input class="form-control search-form rounded-0 me-2 border-0 p-0 bg-transparent" type="search"
                         placeholder="Search book..." aria-label="Search" id="search">
                 </form>
+
+                <li class="nav-item d-flex">
+                    <a href="#" class="align-self-center text-reset">
+                        <i class="bi bi-handbag"></i>
+                    </a>
+                </li>
+                <div class="vr bg-black my-1 mx-2 d-none d-lg-block"></div>
                 <!-- Authentication Links -->
                 @guest
                     @if (Route::has('login'))
@@ -74,13 +81,20 @@
                         </li>
                     @endif
                 @else
-                    <li class="nav-item dropdown text-end">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }}
+                    <li class="nav-item dropdown text-end ms-auto">
+                        <a id="navbarDropdown"
+                            class="nav-link overflow-hidden img-thumbnail position-relative rounded-circle" href="#"
+                            role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre
+                            style="height:35px; width: 35px;">
+                            {{-- {{ Auth::user()->name }} --}}
+                            <img src="{{ asset('img/monka.jpeg') }}"
+                                class="position-absolute h-100 w-auto top-50 start-50 translate-middle" alt="...">
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('profile') }}">
+                                <i class="bi bi-person"></i> {{ __('Profile') }}
+                            </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="bi bi-box-arrow-left"></i> {{ __('Logout') }}
