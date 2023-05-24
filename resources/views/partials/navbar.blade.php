@@ -36,8 +36,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mx-auto left-nav column-gap-4">
-                <li class="nav-item active">
-                    <a class="nav-link" aria-current="page" href="/">Books</a>
+                <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
+                    <a class="nav-link" href="/">Books</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Categories</a>

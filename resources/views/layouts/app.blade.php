@@ -17,7 +17,7 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/script.js?v=') . time() }}"></script>
 
     {{-- Animations --}}
     <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">

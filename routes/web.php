@@ -1,9 +1,11 @@
 <?php
 
+use App\Models\Book;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
-use App\Models\Book;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,18 +24,16 @@ use App\Models\Book;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth')->name('home');
 
-Route::get('users/{author:name}', function (User $author) {
-    return view('profile', [
-        'author' => $author->name,
-        'books' => Book::all(),
+// Route::get('/profile/{user:username}', function (User $user) {
+//     return view('profile', [
+//         'author' => $user->username,
+//         'books' => Book::all(),
 
-    ]);
-});
-Route::get('/profile', function () {
-    return view('profile', [
-        'books' => Book::all(),
-        'myBooks' => Book::where('user_id', auth()->user()->id)->get()
-    ]);
-})->name('profile');
+//     ]);
+// });
+// Route::delete('/profile/{slug}', [ProfileController::class, 'destroy'])->middleware('auth');
+Route::resource('/profile', ProfileController::class)->middleware('auth')->names([
+    'index' => 'profile',
+]);

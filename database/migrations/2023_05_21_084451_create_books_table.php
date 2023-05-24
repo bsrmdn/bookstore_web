@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('title');
+            $table->string('slug');
             $table->integer('price');
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
