@@ -16,7 +16,7 @@
                             <div class="card border-0 bg-transparent text-center" style="width: 10rem;">
                                 <div class="overflow-hidden w-100 position-relative rounded-bottom rounded-pill"
                                     style="height: 20rem;">
-                                    <img src="{{ asset('img/thus-spoke-zarathustra.jpg') }}"
+                                    <img src="@if ($book->image) {{ asset('storage/' . $book->image) }} @else {{ asset('img/default-book.png') }} @endif"
                                         class="card-img-top position-absolute top-50 start-50 translate-middle h-100"
                                         alt="...">
                                 </div>
@@ -24,7 +24,9 @@
                                     <div class="row card-title">
                                         <h5 class="card-title fw-bold fs-6 text-truncate">{{ $book->title }}</h5>
                                     </div>
-                                    <p class="card-text fs-6">{{ $book->user->name }}</p>
+                                    <p class="card-text fs-6"><a href="/profile/{{ $book->user->username }}"
+                                            class="text-decoration-none text-black">
+                                            {{ $book->user->name }}</a></p>
                                 </div>
                             </div>
                         </div>
@@ -35,11 +37,13 @@
                                     <div class="row card-title">
                                         <h5 class="card-title fw-bold fs-6 text-truncate">{{ $book->title }}</h5>
                                     </div>
-                                    <p class="card-text fs-6">{{ $book->user->name }}</p>
+                                    <p class="card-text fs-6"><a href="/profile/{{ $book->user->username }}"
+                                            class="text-decoration-none text-black">
+                                            {{ $book->user->name }}</a></p>
                                 </div>
                                 <div class="overflow-hidden w-100 position-relative rounded-top rounded-pill"
                                     style="height: 20rem;">
-                                    <img src="{{ asset('img/thus-spoke-zarathustra.jpg') }}"
+                                    <img src="@if ($book->image) {{ asset('storage/' . $book->image) }} @else {{ asset('img/default-book.png') }} @endif"
                                         class="card-img-top position-absolute top-50 start-50 translate-middle h-100"
                                         alt="...">
                                 </div>
@@ -63,19 +67,24 @@
                     <div class="col-auto">
                         <div class="card border-0 bg-transparent" style="width: 16rem;">
                             <div class="overflow-hidden w-100 position-relative" style="height: 19rem;">
-                                <img src="{{ asset('img/thus-spoke-zarathustra.jpg') }}"
+                                <img src="@if ($book->image) {{ asset('storage/' . $book->image) }} @else {{ asset('img/default-book.png') }} @endif"
                                     class="card-img-top position-absolute top-50 start-50 translate-middle" alt="...">
                             </div>
                             <div class="card-body px-0 lh-1">
-                                <div class="row card-title">
-                                    <div class="col-8">
+                                <div class="row justify-content-between card-title">
+                                    <div class="col-6">
                                         <h5 class="card-title fw-bold fs-6 text-truncate">{{ $book->title }}</h5>
                                     </div>
-                                    <div class="col-4 text-end">
-                                        <p class="card-title fw-bold fs-5">Rp. {{ $book->price }}</p>
+                                    <div class="col-6 text-end">
+                                        <p class="card-title fw-bold fs-5">Rp.
+                                            {{ number_format($book->price, 0, ',', '.') }}</p>
                                     </div>
                                 </div>
-                                <p class="card-text fs-6">by: {{ $book->user->name }}</p>
+                                <p>by:
+                                    <a href="/profile/{{ $book->user->username }}"
+                                        class="card-text fs-6 text-decoration-none text-black">
+                                        {{ $book->user->name }}</a>
+                                </p>
                                 <a href="#" class="btn btn-primary rounded-0 py-2 px-4">Add <i
                                         class="bi bi-basket3"></i></a>
                             </div>

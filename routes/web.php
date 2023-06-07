@@ -24,16 +24,21 @@ use App\Http\Controllers\ProfileController;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth')->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Route::get('/profile/{user:username}', function (User $user) {
-//     return view('profile', [
-//         'author' => $user->username,
-//         'books' => Book::all(),
+Route::get('/authors', function () {
+    return view('pages.authors', [
+        'authors' => User::all(),
+        'books' => Book::all(),
+    ]);
+});
 
-//     ]);
-// });
-// Route::delete('/profile/{slug}', [ProfileController::class, 'destroy'])->middleware('auth');
-Route::resource('/profile', ProfileController::class)->middleware('auth')->names([
-    'index' => 'profile',
-]);
+Route::get('/books', [BookController::class, 'index']);
+
+Route::post('/profile', [BookController::class, 'store'])->middleware('auth');
+Route::delete('/profile/{book:slug}', [BookController::class, 'destroy'])->middleware('auth');
+Route::put('/profile/{book:slug}', [BookController::class, 'update'])->middleware('auth');
+Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth')->name('profile');
+Route::get('/profile/{user:username}', [ProfileController::class, 'show']);
+Route::get('/profile/{user:username}/edit', [ProfileController::class, 'edit'])->middleware('auth')->name('editProfile');
+Route::put('/profile/{user:username}/edit', [ProfileController::class, 'update'])->middleware('auth');

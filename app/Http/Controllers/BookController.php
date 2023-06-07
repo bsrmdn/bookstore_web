@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
+use App\Models\User;
+// use App\Http\Requests\StoreBookRequest;
+// use App\Http\Requests\UpdateBookRequest;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -13,6 +15,9 @@ class BookController extends Controller
      */
     public function index()
     {
+        return view('pages.books', [
+            'books' => Book::all(),
+        ]);
     }
 
     /**
@@ -26,9 +31,23 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBookRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'image' => 'image|file',
+            'title' => 'required',
+            'price' => 'required'
+        ]);
+
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('book-images');
+        }
+
+        $validatedData['user_id'] = auth()->user()->id;
+
+        Book::create($validatedData);
+
+        return redirect('/profile')->with('success', 'Your book has been added!');
     }
 
     /**
@@ -50,9 +69,23 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBookRequest $request, Book $book)
+    public function update(Request $request, Book $book)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'image' => 'image|file',
+            'price' => 'required'
+        ]);
+
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('book-images');
+        }
+
+        $validatedData['user_id'] = auth()->user()->id;
+
+        Book::where('id', $book->id)->update($validatedData);
+
+        return redirect('/profile')->with('success', 'Your book has been updated!');
     }
 
     /**
@@ -60,6 +93,10 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        // return dd($book->id);
+        Book::destroy($book->id);
+        // $book->destroy($book->id);
+
+        return redirect('/profile')->with('success', 'Your book has been deleted!');
     }
 }

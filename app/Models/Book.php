@@ -32,4 +32,9 @@ class Book extends Model
             $book->slug = Str::slug($book->title);
         });
     }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }

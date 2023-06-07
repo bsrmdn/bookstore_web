@@ -4,7 +4,26 @@
 
 // $('.toast').toast({})
 
-function Edit(Btn) {
+// Image preview when create/update
+function previewImg(whatFor) {
+    const image = document.querySelector('#inputImage') ? document.querySelector('#inputImage') : document.querySelector('#editImage');
+    const imagePreview = document.querySelector('.img-preview');
+
+    if (whatFor != 'editProfile') {
+        imagePreview.classList.add = 'd-block';
+
+    }
+
+    const oFReader = new FileReader();
+    oFReader.readAsDataURL(image.files[0]);
+
+    oFReader.onload = (oFREvent) => {
+        imagePreview.src = oFREvent.target.result;
+    }
+}
+
+// Edit the book
+function edit(Btn) {
     let thisBtn = document.getElementById(Btn);
     let options = document.getElementsByClassName("edit-option");
     let animate = document.getElementsByClassName("shake-constant");
@@ -19,7 +38,6 @@ function Edit(Btn) {
 
     separateClass(options);
     separateClass(animate);
-
 
 }
 

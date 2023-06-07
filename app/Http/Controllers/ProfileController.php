@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -13,10 +14,11 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('profile', [
-            'author' => auth()->user()->name,
+        return view('pages.profile', [
+            'author' => auth()->user(),
             'myBooks' => Book::where('user_id', auth()->user()->id)->get(),
             'purchasedBooks' => Book::where('user_id', '!=', auth()->user()->id)->get(),
+            'isMyProfile' => true,
         ]);
     }
 
@@ -33,16 +35,21 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'title' => 'required',
-            'price' => 'required'
-        ]);
+        // $validatedData = $request->validate([
+        //     'image' => 'image|file',
+        //     'title' => 'required',
+        //     'price' => 'required'
+        // ]);
 
-        $validatedData['user_id'] = auth()->user()->id;
+        // if ($request->file('image')) {
+        //     $validatedData['image'] = $request->file('image')->store('book-images');
+        // }
 
-        Book::create($validatedData);
+        // $validatedData['user_id'] = auth()->user()->id;
 
-        return redirect('/profile')->with('success', 'Your book has been added!');
+        // Book::create($validatedData);
+
+        // return redirect('/profile')->with('success', 'Your book has been added!');
     }
 
     /**
@@ -50,31 +57,47 @@ class ProfileController extends Controller
      */
     public function show(User $user)
     {
-        return $user;
-        // if ($username == auth()->user()->username) {
-        //     return redirect('/profile');
-        // } else {
-        //     return view('profile', [
-        //         'author' => $username->username,
-
-        //     ]);
-        // }
+        if ($user == auth()->user()) {
+            return redirect('/profile');
+        } else {
+            return view('pages.profile', [
+                'author' => $user,
+                'myBooks' => Book::all()->where('user_id', $user->id),
+                'isMyProfile' => false,
+            ]);
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Book $book)
+    public function edit(User $user)
     {
-        //
+        return view('pages.profile', [
+            'author' => $user,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, User $user)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'avatar' => 'image|file',
+        ]);
+
+        if ($request->file('avatar')) {
+            $validatedData['avatar'] = $request->file('avatar')->store('user-avatars');
+        }
+
+        $validatedData['username'] = Str::slug($validatedData['name']);
+
+
+        User::where('id', $user->id)->update($validatedData);
+
+        return redirect('/profile')->with('success', 'Your profile has been updated!');
     }
 
     /**
@@ -82,10 +105,5 @@ class ProfileController extends Controller
      */
     public function destroy(Book $book)
     {
-        // return dd($book);
-        Book::destroy($book->id);
-        // $book->destroy($book->id);
-
-        return redirect('/profile')->with('success', 'Your book has been deleted!');
     }
 }

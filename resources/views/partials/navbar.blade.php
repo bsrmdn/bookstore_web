@@ -37,13 +37,13 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mx-auto left-nav column-gap-4">
                 <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
-                    <a class="nav-link" href="/">Books</a>
+                    <a class="nav-link" href="{{ url('/') }}">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Categories</a>
+                <li class="nav-item {{ Request::is('books') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ url('books') }}">Books</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Wishlist</a>
+                <li class="nav-item {{ Request::is('authors') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ url('authors') }}">Authors</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Blog</a>
@@ -87,13 +87,16 @@
                             role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre
                             style="height:35px; width: 35px;">
                             {{-- {{ Auth::user()->name }} --}}
-                            <img src="{{ asset('img/monka.jpeg') }}"
+                            <img src="@if (auth()->user()->avatar) {{ asset('storage/' . auth()->user()->avatar) }} @else{{ asset('img/default-profile.jpg') }} @endif"
                                 class="position-absolute h-100 w-auto top-50 start-50 translate-middle" alt="...">
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu dropdown-menu-end z-1" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('profile') }}">
                                 <i class="bi bi-person"></i> {{ __('Profile') }}
+                            </a>
+                            <a class="dropdown-item" href="/profile/{{ auth()->user()->username }}/edit">
+                                <i class="bi bi-pencil-square"></i> {{ __('Edit Profile') }}
                             </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
