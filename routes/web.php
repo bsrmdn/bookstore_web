@@ -33,7 +33,7 @@ Route::get('/authors', function () {
     ]);
 });
 
-Route::get('/books', [BookController::class, 'index']);
+Route::get('/books', [BookController::class, 'index'])->middleware('auth');
 
 Route::post('/profile', [BookController::class, 'store'])->middleware('auth');
 Route::delete('/profile/{book:slug}', [BookController::class, 'destroy'])->middleware('auth');

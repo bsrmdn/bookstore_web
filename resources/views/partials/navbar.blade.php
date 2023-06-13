@@ -45,12 +45,12 @@
                 <li class="nav-item {{ Request::is('authors') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ url('authors') }}">Authors</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="#">Blog</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About Us</a>
-                </li>
+                </li> --}}
             </ul>
 
             <!-- Right Side Of Navbar -->
